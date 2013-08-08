@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <sirportly translate="label" module="sirportly">
+            <label>Sirportly</label>
+            <tab>husseycoding</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1500</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <api translate="label">
+                    <label>API Credentials</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[Enter the API token and secret from the Sirportly API Access configuration.  You can create an API token under Admin &rarr; API Access when logged in to Sirportly.]]></comment>
+                    <fields>
+                        <token>
+                            <label>Token</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Required</comment>
+                        </token>
+                        <secret>
+                            <label>Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Required</comment>
+                        </secret>
+                    </fields>
+                </api>
+                <ticketassign translate="label">
+                    <label>Ticket Defaults</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>Here you can define a status, priority, team and department to assign new tickets to in Sirportly.</comment>
+                    <fields>
+                        <status>
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_status</source_model>
+                            <comment>Required</comment>
+                        </status>
+                        <priority>
+                            <label>Priority</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_priority</source_model>
+                            <comment>Required</comment>
+                        </priority>
+                        <team>
+                            <label>Team</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_team</source_model>
+                            <comment>Required</comment>
+                        </team>
+                        <department>
+                            <label>Department</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_department</source_model>
+                            <comment>Required</comment>
+                        </department>
+                    </fields>
+                </ticketassign>
+                <contact translate="label">
+                    <label>Contact Form Integration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Enable or disable Sirportly contact form integration.  When disabled, contact form requests will be processed by Magento as normal.</comment>
+                        </enabled>
+                    </fields>
+                </contact>
+            </groups>
+        </sirportly>
+    </sections>
+</config>

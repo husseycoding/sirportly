@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <contacts_index_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/sirportlysubmit.js</name>
+            </action>
+        </reference>
+        <block type="core/template" name="sirportly_contact" template="sirportly/contact.phtml" after="-" parent="content" />
+    </contacts_index_index>
+</layout>
