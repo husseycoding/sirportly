@@ -13,22 +13,42 @@ class HusseyCoding_Sirportly_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_verified;
     }
     
-    public function createTicket($data = array())
+    public function createTicket(array $data, $config = 'ticketassign')
     {
         if ($this->_canSend($data)):
+            $status = $this->_getConfig($config, 'status');
+            $priority = $this->_getConfig($config, 'priority');
+            $team = $this->_getConfig($config, 'team');
+            $department = $this->_getConfig($config, 'department');
+            
             $params = array(
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'subject' => $data['subject'],
-                'message' => $data['comment'],
-                'status' => Mage::getStoreConfig('sirportly/ticketassign/status'),
-                'priority' => Mage::getStoreConfig('sirportly/ticketassign/priority'),
-                'team' => Mage::getStoreConfig('sirportly/ticketassign/team'),
-                'department' => Mage::getStoreConfig('sirportly/ticketassign/department')
+                'status' => $status,
+                'priority' => $priority,
+                'team' => $team,
+                'department' => $department
             );
             
-            $client = $this->_getRequestObject('/api/v2/tickets/submit', $params);
-            return $this->_sendRequest($client);
+            if (!empty($data['html_body']) && !empty($data['html_safe'])):
+                $client = $this->_getRequestObject('/api/v2/tickets/submit', $params);
+                if ($result = $this->_sendRequest($client, true)):
+                    if (!empty($result['reference'])):
+                        $params = array();
+                        $params['html_body'] = $data['html_body'];
+                        $params['html_safe'] = $data['html_safe'];
+                        $params['message'] = $data['comment'];
+                        $params['ticket'] = $result['reference'];
+                        $client = $this->_getRequestObject('/api/v2/tickets/post_update', $params);
+                        return $this->_sendRequest($client);
+                    endif;
+                endif;
+            else:
+                $params['message'] = $data['comment'];
+                $client = $this->_getRequestObject('/api/v2/tickets/submit', $params);
+                return $this->_sendRequest($client);
+            endif;
         endif;
         
         return false;
@@ -96,7 +116,7 @@ class HusseyCoding_Sirportly_Helper_Data extends Mage_Core_Helper_Abstract
         return $sendbody ? $body : true;
     }
     
-    public function getSelectOptions($url, $optgroup = false)
+    public function getSelectOptions($url, $optgroup = false, $empty = '--Please Select--')
     {
         if (!$this->verifyCredentials()):
             return array(
@@ -119,7 +139,7 @@ class HusseyCoding_Sirportly_Helper_Data extends Mage_Core_Helper_Abstract
                 endif;
 
                 if ($return):
-                    array_unshift($return, array('value' => '', 'label' => $this->__('--Please Select--')));
+                    array_unshift($return, array('value' => '', 'label' => $this->__($empty)));
                     return $return;
                 endif;
             endif;
@@ -156,12 +176,18 @@ class HusseyCoding_Sirportly_Helper_Data extends Mage_Core_Helper_Abstract
     
     private function _canSend($data)
     {
-        if (!empty($data['name']) && !empty($data['email']) && !empty($data['subject']) && !empty($data['comment'])):
+        if (!empty($data['name']) && !empty($data['email']) && !empty($data['subject'])):
             if (Mage::getStoreConfig('sirportly/ticketassign/status') && Mage::getStoreConfig('sirportly/ticketassign/priority') && Mage::getStoreConfig('sirportly/ticketassign/team') && Mage::getStoreConfig('sirportly/ticketassign/department')):
                 return true;
             endif;
         endif;
         
         return false;
+    }
+    
+    private function _getConfig($config, $field)
+    {
+        $return = Mage::getStoreConfig('sirportly/' . $config . '/' .  $field);
+        return !empty($return) ? $return : Mage::getStoreConfig('sirportly/ticketassign/' .  $field);
     }
 }

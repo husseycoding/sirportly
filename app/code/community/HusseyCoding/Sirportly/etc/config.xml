@@ -2,7 +2,7 @@
 <config>
     <modules>
         <HusseyCoding_Sirportly>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </HusseyCoding_Sirportly>
     </modules>
     <global>
@@ -10,6 +10,11 @@
             <sirportly>
                 <class>HusseyCoding_Sirportly_Helper</class>
             </sirportly>
+            <checkout>
+                <rewrite>
+                    <data>HusseyCoding_Sirportly_Helper_CheckoutData</data>
+                </rewrite>
+            </checkout>
         </helpers>
         <models>
             <sirportly>

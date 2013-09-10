@@ -108,8 +108,119 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <comment>Enable or disable Sirportly contact form integration.  When disabled, contact form requests will be processed by Magento as normal.</comment>
                         </enabled>
+                        <status>
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_status_contact</source_model>
+                        </status>
+                        <priority>
+                            <label>Priority</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_priority_contact</source_model>
+                        </priority>
+                        <team>
+                            <label>Team</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_team_contact</source_model>
+                        </team>
+                        <department>
+                            <label>Department</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_department_contact</source_model>
+                        </department>
                     </fields>
                 </contact>
+                <paymentfailed translate="label">
+                    <label>Payment Failed Integration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Enable or disable Sirportly payment failed integration.  When enabled, a Sirportly ticket will be created each time a payment fails.</comment>
+                        </enabled>
+                        <email>
+                            <label>Send Email</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>With the above enabled, this will define whether the standard Magento payment failed email should also be sent or not.</comment>
+                        </email>
+                        <subject>
+                            <label>Ticket Subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Optionally set a payment failed ticket subject. Defaults to 'Problem Processing Your Payment'.</comment>
+                        </subject>
+                        <status>
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_status_contact</source_model>
+                        </status>
+                        <priority>
+                            <label>Priority</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_priority_contact</source_model>
+                        </priority>
+                        <team>
+                            <label>Team</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_team_contact</source_model>
+                        </team>
+                        <department>
+                            <label>Department</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_department_contact</source_model>
+                        </department>
+                    </fields>
+                </paymentfailed>
             </groups>
         </sirportly>
     </sections>
