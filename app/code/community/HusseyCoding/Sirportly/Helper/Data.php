@@ -190,4 +190,58 @@ class HusseyCoding_Sirportly_Helper_Data extends Mage_Core_Helper_Abstract
         $return = Mage::getStoreConfig('sirportly/' . $config . '/' .  $field);
         return !empty($return) ? $return : Mage::getStoreConfig('sirportly/ticketassign/' .  $field);
     }
+    
+    public function getTicketsByEmail($email)
+    {
+        if ($id = $this->_getContactIdByEmail($email)):
+            $params = array('contact' => $id, 'sort_by' => 'updated_at', 'order' => 'desc');
+            $client = $this->_getRequestObject('/api/v2/tickets/contact', $params);
+            $result = $this->_sendRequest($client, true);
+            
+            if (!empty($result['records'])):
+                $tickets = $result['records'];
+                $pages = (int) $result['pagination']['pages'];
+                if ($pages > 1):
+                    $current = 1;
+                    while ($pages >= $current):
+                        $current++;
+                        $params = array('contact' => $id, 'sort_by' => 'updated_at', 'order' => 'desc', 'page' => $current);
+                        $client = $this->_getRequestObject('/api/v2/tickets/contact', $params);
+                        $result = $this->_sendRequest($client, true);
+                        if (!empty($result['records'])):
+                            $tickets = array_merge($tickets, $result['records']);
+                        endif;
+                        
+                        if ($current >= 10 || empty($result['records'])):
+                            break;
+                        endif;
+                    endwhile;
+                endif;
+                
+                return $tickets;
+            endif;
+        endif;
+        
+        return array();
+    }
+    
+    private function _getContactIdByEmail($email)
+    {
+        $params = array('query' => $email, 'limit' => 1, 'types' => 'email');
+        $client = $this->_getRequestObject('/api/v2/contacts/search', $params);
+        $result = $this->_sendRequest($client, true);
+        
+        if (!empty($result[0]['contact']['id'])):
+            return $result[0]['contact']['id'];
+        endif;
+        
+        return false;
+    }
+    
+    public function getTicketUpdates($reference)
+    {
+        $params = array('ticket' => $reference);
+        $client = $this->_getRequestObject('/api/v2/ticket_updates/all', $params);
+        return $this->_sendRequest($client, true);
+    }
 }

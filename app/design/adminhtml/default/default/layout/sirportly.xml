@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_sales_order_view>
+        <reference name="sales_order_tabs">
+            <action method="addTab">
+                <name>sirportly_tickets</name>
+                <block>sirportly/adminhtml_sales_order_view_tab_sirportlyTickets</block>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sirportly/js/ordertickets.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>sirportly/css/ordertickets.css</name>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+</layout>

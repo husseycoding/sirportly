@@ -2,7 +2,7 @@
 <config>
     <modules>
         <HusseyCoding_Sirportly>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </HusseyCoding_Sirportly>
     </modules>
     <global>
@@ -21,6 +21,11 @@
                 <class>HusseyCoding_Sirportly_Model</class>
             </sirportly>
         </models>
+        <blocks>
+            <sirportly>
+                <class>HusseyCoding_Sirportly_Block</class>
+            </sirportly>
+        </blocks>
     </global>
     <frontend>
         <routers>
@@ -51,5 +56,23 @@
                 </observers>
             </core_config_data_save_after>
         </events>
+        <layout>
+            <updates>
+                <sirportly>
+                    <file>sirportly.xml</file>
+                </sirportly>
+            </updates>
+        </layout>
     </adminhtml>
+    <admin>
+        <routers>
+            <sirportly>
+                <use>admin</use>
+                <args>
+                    <module>HusseyCoding_Sirportly</module>
+                    <frontName>sirportly</frontName>
+                </args>
+            </sirportly>
+        </routers>
+    </admin>
 </config>

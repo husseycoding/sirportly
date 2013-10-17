@@ -1,0 +1,43 @@
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head">
+            Ticket history for <?php echo $this->getCustomerName(); ?> (<?php echo $this->getCustomerEmail(); ?>)
+        </h4>
+    </div>
+    <fieldset>
+        <table cellspacing="10" width="100%">
+            <colgroup>
+                <col width="100">
+                <col width="100">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Subject</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $count = 0; ?>
+                <?php foreach ($this->getTicketsByEmail() as $ticket): ?>
+                    <?php $count++; ?>
+                    <tr class="sirportly-ticket-click" onclick="thisordertickets.getUpdates('<?php echo $ticket['reference']; ?>')">
+                        <td><?php echo $ticket['status']['name']; ?></td>
+                        <td><?php echo $ticket['priority']['name']; ?></td>
+                        <td><?php echo $ticket['subject']; ?></td>
+                    </tr>
+                    <tr id="target-<?php echo $ticket['reference']; ?>" class="sirportly-ticket-target">
+                        <td colspan="3"></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+        var thisordertickets = new ordertickets();
+        thisordertickets.hideTargets();
+        thisordertickets.updateurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUpdates'); ?>";
+    //]]>
+</script>

@@ -1,0 +1,5 @@
+.sirportly-ticket-click { cursor:pointer; }
+.sirportly-ticket-target td { padding:15px; border:1px solid #e3e3e3; }
+.sirportly-ticket-target .ticket-update span { font-weight:bold; width:100px; display:inline-block; }
+.sirportly-ticket-target .ticket-update-subject { margin-bottom:5px; }
+.sirportly-ticket-target .ticket-update-message { margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #e3e3e3; }
