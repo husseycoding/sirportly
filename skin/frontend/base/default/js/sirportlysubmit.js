@@ -8,7 +8,7 @@ var sirportlysubmit = Class.create({
             if (contactForm.validator && contactForm.validator.validate()) {
                 this.disableButton();
                 var parameters = this.form.serialize(true);
-                new Ajax.Request("/sirportly/ticket/create", {
+                new Ajax.Request(this.ticketurl, {
                     parameters: parameters,
                     onSuccess: function(response) {
                         var contentarray = response.responseText.evalJSON();
