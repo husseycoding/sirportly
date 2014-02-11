@@ -1,0 +1,137 @@
+<table class="form-list">
+    <tbody>
+        <tr>
+            <td class="label">
+                <label for="sirportly_status">Status</label>
+            </td>
+            <td  class="value">
+                <select id="sirportly_status" name="status">
+                    <?php foreach ($this->getStatuses() as $status): ?>
+                        <?php if (!empty($status['label'])): ?>
+                            <option value="<?php echo $status['value']; ?>"><?php echo $status['label']; ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_priority">Priority</label>
+            </td>
+            <td  class="value">
+                <select id="sirportly_priority" name="priority">
+                    <?php foreach ($this->getPriorities() as $priority): ?>
+                        <?php if (!empty($priority['label'])): ?>
+                            <option value="<?php echo $priority['value']; ?>"><?php echo $priority['label']; ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_department">Department</label>
+            </td>
+            <td class="value">
+                <select id="sirportly_department" name="department" class="select">
+                    <?php foreach ($this->getDepartments() as $department): ?>
+                        <?php if (!empty($department['value']) && is_array($department['value']) && !empty($department['label'])): ?>
+                            <optgroup label="<?php echo $department['label']; ?>">
+                                <?php foreach ($department['value'] as $entry): ?>
+                                    <?php if (!empty($entry['label']) && !empty($entry['value'])): ?>
+                                        <option value="<?php echo $entry['value']; ?>"><?php echo $entry['label']; ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </optgroup>
+                        <?php elseif (!empty($department['label'])): ?>
+                            <option value="<?php echo $department['value']; ?>"><?php echo $department['label']; ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_team">Team</label>
+            </td>
+            <td  class="value">
+                <select id="sirportly_team" name="team">
+                    <?php echo $this->getChildHtml('order_tab_sirportly_newticket_teams'); ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_user">User</label>
+            </td>
+            <td class="value">
+                <select id="sirportly_user" name="user" class="select">
+                    <?php echo $this->getChildHtml('order_tab_sirportly_newticket_users'); ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_sla">SLA</label>
+            </td>
+            <td class="value">
+                <select id="sirportly_sla" name="sla">
+                    <?php foreach ($this->getSlas() as $sla): ?>
+                        <?php if (!empty($sla['label'])): ?>
+                            <option value="<?php echo $sla['value']; ?>"><?php echo $sla['label']; ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_name">Customer Name</label>
+            </td>
+            <td class="value">
+                <input id="sirportly_name" type="hidden" name="name" value="<?php echo $this->getCustomerName(); ?>" />
+                <span><?php echo $this->getCustomerName(); ?></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_email">Email Address</label>
+            </td>
+            <td class="value">
+                <input id="sirportly_email" type="hidden" name="email" value="<?php echo $this->getCustomerEmail(); ?>" />
+                <span><?php echo $this->getCustomerEmail(); ?></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_subject">Subject</label>
+            </td>
+            <td class="value">
+                <input id="sirportly_subject" class="input-text" type="text" name="subject" />
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_comment">Comment</label>
+            </td>
+            <td class="value">
+                <textarea id="sirportly_comment" cols="15" rows="2" name="comment"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="sirportly_notify">Notify Customer</label>
+            </td>
+            <td class="value">
+                <input id="sirportly_nootify" type="checkbox" name="notify" checked="" />
+            </td>
+        </tr>
+        <?php if ($this->verifyCredentials()): ?>
+            <tr>
+                <td colspan="2">
+                    <span class="sirportly-ticket-new-popup-submit"><?php echo $this->getChildHtml('submit_button'); ?></span>
+                </td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>

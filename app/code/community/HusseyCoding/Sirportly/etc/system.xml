@@ -39,14 +39,33 @@
                         </secret>
                     </fields>
                 </api>
-                <ticketassign translate="label">
-                    <label>Ticket Defaults</label>
+                <general translate="label">
+                    <label>General Settings</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>2</sort_order>
                     <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <domain>
+                            <label>Sirportly Domain</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Enter your Sirportly domain here to enable clickable links when viewing tickets e.g. domain.sirportly.com</comment>
+                        </domain>
+                    </fields>
+                </general>
+                <ticketassign translate="label">
+                    <label>Frontend Ticket Defaults</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <comment>Here you can define a status, priority, team and department to assign new tickets to in Sirportly.</comment>
+                    <comment>Here you can define a default status, priority, team and department for new Sirportly tickets which are automatically created on the frontend.</comment>
                     <fields>
                         <status>
                             <label>Status</label>
@@ -68,32 +87,32 @@
                             <source_model>sirportly/system_config_source_priority</source_model>
                             <comment>Required</comment>
                         </priority>
-                        <team>
-                            <label>Team</label>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>3</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <source_model>sirportly/system_config_source_team</source_model>
-                            <comment>Required</comment>
-                        </team>
                         <department>
                             <label>Department</label>
                             <frontend_type>select</frontend_type>
-                            <sort_order>4</sort_order>
+                            <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <source_model>sirportly/system_config_source_department</source_model>
                             <comment>Required</comment>
                         </department>
+                        <team>
+                            <label>Team</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>sirportly/system_config_source_team</source_model>
+                            <comment>Required</comment>
+                        </team>
                     </fields>
                 </ticketassign>
                 <contact translate="label">
-                    <label>Contact Form Integration</label>
+                    <label>Frontend Contact Form Integration</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>3</sort_order>
+                    <sort_order>4</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -126,30 +145,30 @@
                             <show_in_store>1</show_in_store>
                             <source_model>sirportly/system_config_source_priority_contact</source_model>
                         </priority>
-                        <team>
-                            <label>Team</label>
+                        <department>
+                            <label>Department</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>sirportly/system_config_source_team_contact</source_model>
-                        </team>
-                        <department>
-                            <label>Department</label>
+                            <source_model>sirportly/system_config_source_department_contact</source_model>
+                        </department>
+                        <team>
+                            <label>Team</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>sirportly/system_config_source_department_contact</source_model>
-                        </department>
+                            <source_model>sirportly/system_config_source_team_contact</source_model>
+                        </team>
                     </fields>
                 </contact>
                 <paymentfailed translate="label">
-                    <label>Payment Failed Integration</label>
+                    <label>Frontend Payment Failed Integration</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>4</sort_order>
+                    <sort_order>5</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -190,7 +209,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>sirportly/system_config_source_status_contact</source_model>
+                            <source_model>sirportly/system_config_source_status_paymentFailed</source_model>
                         </status>
                         <priority>
                             <label>Priority</label>
@@ -199,28 +218,93 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>sirportly/system_config_source_priority_contact</source_model>
+                            <source_model>sirportly/system_config_source_priority_paymentFailed</source_model>
                         </priority>
-                        <team>
-                            <label>Team</label>
+                        <department>
+                            <label>Department</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>6</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>sirportly/system_config_source_team_contact</source_model>
-                        </team>
-                        <department>
-                            <label>Department</label>
+                            <source_model>sirportly/system_config_source_department_paymentFailed</source_model>
+                        </department>
+                        <team>
+                            <label>Team</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>7</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>sirportly/system_config_source_department_contact</source_model>
-                        </department>
+                            <source_model>sirportly/system_config_source_team_paymentFailed</source_model>
+                        </team>
                     </fields>
                 </paymentfailed>
+                <orderscreen translate="label">
+                    <label>Admin Order Screen Ticket Defaults</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment>These settings apply when creating a new ticket and can be overridden.</comment>
+                    <fields>
+                        <status>
+                            <label>Status</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>sirportly/system_config_source_status_orderScreen</source_model>
+                        </status>
+                        <priority>
+                            <label>Priority</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>sirportly/system_config_source_priority_orderScreen</source_model>
+                        </priority>
+                        <department>
+                            <label>Department</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>sirportly/system_config_source_department_orderScreen</source_model>
+                        </department>
+                        <team>
+                            <label>Team</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>sirportly/system_config_source_team_orderScreen</source_model>
+                        </team>
+                        <sla>
+                            <label>SLA</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>sirportly/system_config_source_sla_orderScreen</source_model>
+                        </sla>
+                    </fields>
+                </orderscreen>
+                <restrict translate="label">
+                    <label>User Restriction</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>7</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <comment><![CDATA[<p>Associate Magento admin users to Sirportly users to restrict actions when creating or updating tickets.  Restricted users can only create and update tickets as themselves.</p><p>Restricting a user can be done from the Sirportly tab when editing a user under System &rarr; Permissions &rarr; Users.</p>]]></comment>
+                </restrict>
             </groups>
         </sirportly>
     </sections>

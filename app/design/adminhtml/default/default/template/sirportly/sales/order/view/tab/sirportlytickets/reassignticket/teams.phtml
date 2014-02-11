@@ -1,0 +1,5 @@
+<?php foreach ($this->getTeams() as $team): ?>
+    <?php if (!empty($team['label'])): ?>
+        <option value="<?php echo $team['value']; ?>"><?php echo $team['label'] ?></option>
+    <?php endif; ?>
+<?php endforeach; ?>

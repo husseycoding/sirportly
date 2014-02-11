@@ -10,6 +10,14 @@
         <reference name="head">
             <action method="addItem">
                 <type>skin_js</type>
+                <name>sirportly/js/livepipe.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sirportly/js/window.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
                 <name>sirportly/js/ordertickets.js</name>
             </action>
             <action method="addItem">

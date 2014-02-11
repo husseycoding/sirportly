@@ -1,0 +1,89 @@
+<?php if ($this->canUpdate()): ?>
+    <div id="sirportly-ticket-reassign-popup-<?php echo $this->getReference(); ?>" class="sirportly-ticket-reassign-popup">
+        <form id="sirportly-ticket-reassign-form-<?php echo $this->getReference(); ?>" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUpdateTicket'); ?>">
+            <div class="entry-edit">
+                <div class="entry-edit-head">
+                    <h4>Reassign ticket "<?php echo $this->getSubject(); ?>"</h4>
+                    <span class="sirportly-ticket-reassign-popup-close">
+                        <a href="javascript:void(0)" onclick="Control.Modal.close()">close</a>
+                    </span>
+                </div>
+                <input type="hidden" name="ticket" value="<?php echo $this->getReference(); ?>" />
+                <input type="hidden" name="sla" value="<?php echo $this->getSla(); ?>" />
+                <fieldset>
+                    <table class="form-list">
+                        <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_department_reassign-<?php echo $this->getReference(); ?>">Department</label>
+                                </td>
+                                <td class="value">
+                                    <select id="sirportly_department_reassign-<?php echo $this->getReference(); ?>" name="department" class="select">
+                                        <?php foreach ($this->getDepartments() as $department): ?>
+                                            <?php if (!empty($department['value']) && is_array($department['value']) && !empty($department['label'])): ?>
+                                                <optgroup label="<?php echo $department['label']; ?>">
+                                                    <?php foreach ($department['value'] as $entry): ?>
+                                                        <?php if (!empty($entry['label']) && !empty($entry['value'])): ?>
+                                                            <option value="<?php echo $entry['value']; ?>"><?php echo $entry['label']; ?></option>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </optgroup>
+                                            <?php elseif (!empty($department['label'])): ?>
+                                                <option value="<?php echo $department['value']; ?>"><?php echo $department['label']; ?></option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_team_reassign-<?php echo $this->getReference(); ?>">Team</label>
+                                </td>
+                                <td  class="value">
+                                    <select id="sirportly_team_reassign-<?php echo $this->getReference(); ?>" name="team">
+                                        <?php echo $this->getChildHtml('order_tab_sirportly_reassignticket_teams'); ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_user_reassign-<?php echo $this->getReference(); ?>">User</label>
+                                </td>
+                                <td class="value">
+                                    <select id="sirportly_user_reassign-<?php echo $this->getReference(); ?>" name="user" class="select">
+                                        <?php echo $this->getChildHtml('order_tab_sirportly_reassignticket_users'); ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_name_reassign-<?php echo $this->getReference(); ?>">Customer Name</label>
+                                </td>
+                                <td class="value">
+                                    <input id="sirportly_name_reassign-<?php echo $this->getReference(); ?>" type="hidden" name="name" value="<?php echo $this->getCustomerName(); ?>" />
+                                    <span><?php echo $this->getCustomerName(); ?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_email_reassign-<?php echo $this->getReference(); ?>">Email Address</label>
+                                </td>
+                                <td class="value">
+                                    <input id="sirportly_email_reassign-<?php echo $this->getReference(); ?>" type="hidden" name="email" value="<?php echo $this->getCustomerEmail(); ?>" />
+                                    <span><?php echo $this->getCustomerEmail(); ?></span>
+                                </td>
+                            </tr>
+                            <?php if ($this->verifyCredentials()): ?>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="sirportly-ticket-reassign-popup-submit sirportly-ticket-reassign-popup-submit-<?php echo $this->getReference(); ?>"><?php echo $this->getChildHtml('submit_button'); ?></span>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+<?php endif; ?>

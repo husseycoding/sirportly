@@ -1,0 +1,172 @@
+<?php if ($this->canUpdate()): ?>
+    <div id="sirportly-ticket-update-popup-<?php echo $this->getReference(); ?>" class="sirportly-ticket-update-popup">
+        <form id="sirportly-ticket-update-form-<?php echo $this->getReference(); ?>" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUpdateTicket'); ?>">
+            <div class="entry-edit">
+                <div class="entry-edit-head">
+                    <h4>Ticket update for "<?php echo $this->getSubject(); ?>"</h4>
+                    <span class="sirportly-ticket-update-popup-close">
+                        <a href="javascript:void(0)" onclick="Control.Modal.close()">close</a>
+                    </span>
+                </div>
+                <input type="hidden" name="ticket" value="<?php echo $this->getReference(); ?>" />
+                <fieldset>
+                    <table class="form-list">
+                        <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_status-<?php echo $this->getReference(); ?>">Status</label>
+                                </td>
+                                <td  class="value">
+                                    <select id="sirportly_status-<?php echo $this->getReference(); ?>" name="status">
+                                        <?php foreach ($this->getStatuses() as $status): ?>
+                                            <?php if (!empty($status['label'])): ?>
+                                                <option value="<?php echo $status['value']; ?>"><?php echo $status['label']; ?></option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_priority-<?php echo $this->getReference(); ?>">Priority</label>
+                                </td>
+                                <td  class="value">
+                                    <select id="sirportly_priority-<?php echo $this->getReference(); ?>" name="priority">
+                                        <?php foreach ($this->getPriorities() as $priority): ?>
+                                            <?php if (!empty($priority['label'])): ?>
+                                                <option value="<?php echo $priority['value']; ?>"><?php echo $priority['label']; ?></option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_department-<?php echo $this->getReference(); ?>">Department</label>
+                                </td>
+                                <td class="value">
+                                    <select id="sirportly_department-<?php echo $this->getReference(); ?>" name="department" class="select">
+                                        <?php foreach ($this->getDepartments() as $department): ?>
+                                            <?php if (!empty($department['value']) && is_array($department['value']) && !empty($department['label'])): ?>
+                                                <optgroup label="<?php echo $department['label']; ?>">
+                                                    <?php foreach ($department['value'] as $entry): ?>
+                                                        <?php if (!empty($entry['label']) && !empty($entry['value'])): ?>
+                                                            <option value="<?php echo $entry['value']; ?>"><?php echo $entry['label']; ?></option>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </optgroup>
+                                            <?php elseif (!empty($department['label'])): ?>
+                                                <option value="<?php echo $department['value']; ?>"><?php echo $department['label']; ?></option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_team-<?php echo $this->getReference(); ?>">Team</label>
+                                </td>
+                                <td  class="value">
+                                    <select id="sirportly_team-<?php echo $this->getReference(); ?>" name="team">
+                                        <?php echo $this->getChildHtml('order_tab_sirportly_updateticket_teams'); ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_user-<?php echo $this->getReference(); ?>">User</label>
+                                </td>
+                                <td class="value">
+                                    <select id="sirportly_user-<?php echo $this->getReference(); ?>" name="user" class="select">
+                                        <?php echo $this->getChildHtml('order_tab_sirportly_updateticket_users'); ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_sla-<?php echo $this->getReference(); ?>">SLA</label>
+                                </td>
+                                <td class="value">
+                                    <select id="sirportly_sla-<?php echo $this->getReference(); ?>" name="sla">
+                                        <?php foreach ($this->getSlas() as $sla): ?>
+                                            <?php if (!empty($sla['label'])): ?>
+                                                <option value="<?php echo $sla['value']; ?>"><?php echo $sla['label']; ?></option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_name-<?php echo $this->getReference(); ?>">Customer Name</label>
+                                </td>
+                                <td class="value">
+                                    <input id="sirportly_name-<?php echo $this->getReference(); ?>" type="hidden" name="name" value="<?php echo $this->getCustomerName(); ?>" />
+                                    <span><?php echo $this->getCustomerName(); ?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_email-<?php echo $this->getReference(); ?>">Email Address</label>
+                                </td>
+                                <td class="value">
+                                    <input id="sirportly_email-<?php echo $this->getReference(); ?>" type="hidden" name="email" value="<?php echo $this->getCustomerEmail(); ?>" />
+                                    <span><?php echo $this->getCustomerEmail(); ?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_subject-<?php echo $this->getReference(); ?>">Subject (optional)</label>
+                                </td>
+                                <td class="value">
+                                    <input id="sirportly_subject-<?php echo $this->getReference(); ?>" class="input-text" type="text" name="subject" value="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_response-<?php echo $this->getReference(); ?>">Pre-defined Response</label>
+                                </td>
+                                <td class="value">
+                                    <select id="sirportly_response-<?php echo $this->getReference(); ?>" name="response" class="select">
+                                        <?php echo $this->getChildHtml('order_tab_sirportly_updateticket_responses'); ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_comment-<?php echo $this->getReference(); ?>">Comment</label>
+                                </td>
+                                <td class="value">
+                                    <textarea id="sirportly_comment-<?php echo $this->getReference(); ?>" cols="15" rows="2" name="comment"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_notify-<?php echo $this->getReference(); ?>">Notify Customer</label>
+                                </td>
+                                <td class="value">
+                                    <input id="sirportly_notify-<?php echo $this->getReference(); ?>" type="checkbox" name="notify" checked="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="sirportly_private-<?php echo $this->getReference(); ?>">Private Update</label>
+                                </td>
+                                <td class="value">
+                                    <input id="sirportly_private-<?php echo $this->getReference(); ?>" type="checkbox" name="private" />
+                                </td>
+                            </tr>
+                            <?php if ($this->verifyCredentials()): ?>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="sirportly-ticket-update-popup-submit sirportly-ticket-update-popup-submit-<?php echo $this->getReference(); ?>"><?php echo $this->getChildHtml('submit_button'); ?></span>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,5 @@
+<?php foreach ($this->getUsers() as $user): ?>
+    <?php if (!empty($user['label'])): ?>
+        <option value="<?php echo $user['value']; ?>"><?php echo $user['label'] ?></option>
+    <?php endif; ?>
+<?php endforeach; ?>

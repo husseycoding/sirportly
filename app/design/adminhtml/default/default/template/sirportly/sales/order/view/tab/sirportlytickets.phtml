@@ -5,39 +5,103 @@
         </h4>
     </div>
     <fieldset>
-        <table cellspacing="10" width="100%">
-            <colgroup>
-                <col width="100">
-                <col width="100">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Subject</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $count = 0; ?>
-                <?php foreach ($this->getTicketsByEmail() as $ticket): ?>
-                    <?php $count++; ?>
-                    <tr class="sirportly-ticket-click" onclick="thisordertickets.getUpdates('<?php echo $ticket['reference']; ?>')">
-                        <td><?php echo $ticket['status']['name']; ?></td>
-                        <td><?php echo $ticket['priority']['name']; ?></td>
-                        <td><?php echo $ticket['subject']; ?></td>
+        <?php if ($this->canCreate()): ?>
+            <table cellspacing="10" width="100%">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a id="sirportly-ticket-new" href="#sirportly-ticket-new-popup">Create new ticket</a>
+                        </td>
                     </tr>
-                    <tr id="target-<?php echo $ticket['reference']; ?>" class="sirportly-ticket-target">
-                        <td colspan="3"></td>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        <?php $tickets = $this->getTicketsByEmail(); ?>
+        <?php if (count($tickets)): ?>
+            <table cellspacing="12" width="100%">
+                <colgroup>
+                    <col width="75" />
+                    <col width="100" />
+                    <col width="75" />
+                    <col />
+                    <col width="100" />
+                    <col width="150" />
+                    <col width="100" />
+                    <col width="100" />
+                </colgroup>
+                <thead>
+                    <tr class="sirportly-ticket-headings">
+                        <th>Ticket</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Subject</th>
+                        <th>Team</th>
+                        <th>Department</th>
+                        <th>User</th>
+                        <th>SLA</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php $count = 0; ?>
+                    <?php foreach ($tickets as $ticket): ?>
+                        <?php $count++; ?>
+                        <tr class="sirportly-ticket-click" onclick="thisordertickets.getUpdates('<?php echo $ticket['reference']; ?>')">
+                            <?php if ($domain = $this->getSirportlyDomain()): ?>
+                                <td><a href="https://<?php echo $domain; ?>/staff/tickets/<?php echo $ticket['reference']; ?>" target="_blank"><?php echo $ticket['reference']; ?></a></td>
+                            <?php else: ?>
+                                <td><?php echo $ticket['reference']; ?></td>
+                            <?php endif; ?>
+                            <td><?php echo $ticket['status']['name']; ?></td>
+                            <td><?php echo $ticket['priority']['name']; ?></td>
+                            <td><?php echo $ticket['subject']; ?></td>
+                            <td><?php echo !empty($ticket['team']['name']) ? $ticket['team']['name'] : ''; ?></td>
+                            <td><?php echo !empty($ticket['department']['brand']['name']) && !empty($ticket['department']['name']) ? $ticket['department']['brand']['name'] . '&rarr;' . $ticket['department']['name'] : ''; ?></td>
+                            <td><?php echo !empty($ticket['user']['first_name']) && !empty($ticket['user']['last_name']) ? $ticket['user']['first_name'] . ' ' . $ticket['user']['last_name'] : ''; ?></td>
+                            <td><?php echo !empty($ticket['sla']['name']) ? $this->getSlaHtml($ticket) : ''; ?></td>
+                        </tr>
+                        <tr id="target-<?php echo $ticket['reference']; ?>" class="sirportly-ticket-target">
+                            <td colspan="8"></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <table cellspacing="10" width="100%">
+                <tbody>
+                    <tr>
+                        <td>No tickets found for this customer.</td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php endif; ?>
     </fieldset>
 </div>
+<?php if ($this->canCreate()): ?>
+    <div id="sirportly-ticket-new-popup">
+        <form id="sirportly-ticket-new-form" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyNewTicket'); ?>">
+            <div class="entry-edit">
+                <div class="entry-edit-head">
+                    <h4>New ticket for <?php echo $this->getCustomerName(); ?> (<?php echo $this->getCustomerEmail(); ?>)</h4>
+                    <span class="sirportly-ticket-new-popup-close">
+                        <a href="javascript:void(0)" onclick="Control.Modal.close()">close</a>
+                    </span>
+                </div>
+                <fieldset><?php echo $this->getChildHtml('order_tab_sirportly_newticket') ?></fieldset>
+            </div>
+        </form>
+    </div>
+<?php endif; ?>
 <script type="text/javascript">
     //<![CDATA[
         var thisordertickets = new ordertickets();
-        thisordertickets.hideTargets();
         thisordertickets.updateurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUpdates'); ?>";
+        thisordertickets.usersurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUsers'); ?>";
+        thisordertickets.teamsurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyTeams'); ?>";
+        thisordertickets.submitnewurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyNewTicket'); ?>";
+        thisordertickets.submitupdateurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUpdateTicket'); ?>";
+        thisordertickets.deleteupdateurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyDeleteUpdate'); ?>";
+        thisordertickets.reassignurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyReassignTicket'); ?>";
+        thisordertickets.orderid = "<?php echo Mage::registry('current_order')->getId(); ?>";
+        thisordertickets.afterInit();
     //]]>
 </script>

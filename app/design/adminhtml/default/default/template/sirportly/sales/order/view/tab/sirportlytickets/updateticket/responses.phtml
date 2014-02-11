@@ -1,0 +1,5 @@
+<?php foreach ($this->getResponses() as $response): ?>
+    <?php if (!empty($response['label'])): ?>
+        <option value="<?php echo $response['value']; ?>"><?php echo $response['label'] ?></option>
+    <?php endif; ?>
+<?php endforeach; ?>

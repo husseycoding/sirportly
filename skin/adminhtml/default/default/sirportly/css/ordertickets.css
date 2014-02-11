@@ -2,4 +2,26 @@
 .sirportly-ticket-target td { padding:15px; border:1px solid #e3e3e3; }
 .sirportly-ticket-target .ticket-update span { font-weight:bold; width:100px; display:inline-block; }
 .sirportly-ticket-target .ticket-update-subject { margin-bottom:5px; }
-.sirportly-ticket-target .ticket-update-message { margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #e3e3e3; }
+.sirportly-ticket-target .ticket-update-timestamp { margin-top:10px; padding-top:10px; border-top:1px solid #e3e3e3; }
+.sirportly-ticket-target .ticket-update-private { color:#d40707; margin-top:5px; }
+.sirportly-ticket-target .ticket-update-delivered { color:#3d6611; margin-top:5px; }
+.sirportly-ticket-target .ticket-update-delete { margin-top:5px; }
+.sirportly-ticket-target .ticket-reassign { margin-left:20px; }
+.sirportly-ticket-click .ticket-update-sla { font-size:0.9em; margin-top:2px; }
+.sirportly-ticket-click .ticket-update-overdue { color:#d40707; }
+#sirportly-ticket-new-popup { background-color:#fff; border:1px solid #000; padding:10px; }
+#sirportly-ticket-new-popup fieldset { margin:0; }
+#sirportly-ticket-new-popup .sirportly-ticket-new-popup-close { float:right; }
+#sirportly-ticket-new-popup .sirportly-ticket-new-popup-submit { float:right; padding-top:10px; }
+.sirportly-ticket-update-popup { background-color:#fff; border:1px solid #000; padding:10px; }
+.sirportly-ticket-update-popup fieldset { margin:0; }
+.sirportly-ticket-update-popup .sirportly-ticket-update-popup-close { float:right; }
+.sirportly-ticket-update-popup .sirportly-ticket-update-popup-submit { float:right; padding-top:10px; }
+.sirportly-ticket-target .sirportly-ticket-update-popup td { border-width:0; padding:0; }
+.sirportly-ticket-reassign-popup { background-color:#fff; border:1px solid #000; padding:10px; }
+.sirportly-ticket-reassign-popup fieldset { margin:0; }
+.sirportly-ticket-reassign-popup .sirportly-ticket-reassign-popup-close { float:right; }
+.sirportly-ticket-reassign-popup .sirportly-ticket-reassign-popup-submit { float:right; padding-top:10px; }
+.sirportly-ticket-target .sirportly-ticket-reassign-popup td { border-width:0; padding:0; }
+#control_overlay { background-color:#000; }
+#loading-mask { z-index:11000; }
