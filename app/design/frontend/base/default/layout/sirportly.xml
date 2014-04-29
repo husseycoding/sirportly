@@ -9,4 +9,7 @@
         </reference>
         <block type="core/template" name="sirportly_contact" template="sirportly/contact.phtml" after="-" parent="content" />
     </contacts_index_index>
+    <sirportly_orders_index>
+        <block type="sirportly/orders" name="root" template="sirportly/orders.phtml" />
+    </sirportly_orders_index>
 </layout>

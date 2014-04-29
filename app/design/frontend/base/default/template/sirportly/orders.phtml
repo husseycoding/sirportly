@@ -1,0 +1,63 @@
+<?php if ($orders = $this->getOrders()): ?>
+    <table>
+        <thead>
+            <tr>
+                <td>Order Number</td>
+                <td>Created</td>
+                <td>Status</td>
+                <td>Items</td>
+                <td>Total</td>
+                <td>Shipping Method</td>
+                <td>Shipping Country</td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($orders as $id => $order): ?>
+                <tr>
+                    <td>
+                        <a href="<?php echo $order['url']; ?>" target="_blank"><?php echo $order['number']; ?></a>
+                    </td>
+                    <td>On <?php echo $order['date']; ?> at <?php echo $order['time']; ?></td>
+                    <td><?php echo $order['status']; ?></td>
+                    <?php if ($order['items']): ?>
+                        <td>
+                            <?php foreach ($order['items'] as $id => $item): ?>
+                                <div>
+                                    <a href="<?php echo $item['url']; ?>" target="_blank"><?php echo $item['quantity']; ?> x <?php echo $item['sku']; ?></a>
+                                </div>
+                            <?php endforeach; ?>
+                        </td>
+                    <?php else: ?>
+                        <td>None found</td>
+                    <?php endif; ?>
+                    <td><?php echo $order['total']; ?></td>
+                    <?php if (!empty($order['shipping'])): ?>
+                        <td><?php echo $order['shipping']; ?></td>
+                    <?php else: ?>
+                        <td>N/A</td>
+                    <?php endif; ?>
+                    <?php if (!empty($order['country']) && !empty($order['postcode'])): ?>
+                        <td><?php echo $order['country']; ?> (<?php echo $order['postcode']; ?>)</td>
+                    <?php else: ?>
+                        <td>N/A</td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <div>No Magento orders found for <?php echo $this->getCustomerName(); ?> (<?php echo $this->getCustomerEmail(); ?>).</div>
+<?php endif; ?>
+
+<style type="text/css">
+    html { font-family:'Helvetica Neue',Arial,sans-serif; }
+    body { font-size:11px; margin:0; padding:0; }
+    table { border-collapse:collapse; border-spacing:0; width:100%; }
+    thead, tr, td { vertical-align:baseline; }
+    td { font-weight:normal; font-size:11px; }
+    table tr td { border-bottom:1px solid #ccc; }
+    table thead td { color:#999; font-weight:bold; }
+    table td { padding:6px 10px; }
+    table tr td a { color:#000; }
+    table tbody tr:nth-child(2n) td { background-color:#f8f8f8; }
+</style>
