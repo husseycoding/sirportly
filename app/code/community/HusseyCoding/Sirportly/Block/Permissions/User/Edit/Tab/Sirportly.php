@@ -63,7 +63,7 @@ class HusseyCoding_Sirportly_Block_Permissions_User_Edit_Tab_Sirportly extends M
     
     private function _getUserSelect()
     {
-        return Mage::helper('sirportly')->getSelectOptions('/api/v2/objects/users', false, '--None--', array('id' => array('first_name', 'last_name')));
+        return Mage::helper('sirportly')->getSelectOptions('/api/v2/objects/users', false, 'Any User', array('id' => array('first_name', 'last_name')));
     }
     
     private function _getViewSelect()

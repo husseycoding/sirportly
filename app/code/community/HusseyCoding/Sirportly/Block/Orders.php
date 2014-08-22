@@ -1,15 +1,12 @@
 <?php
 class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
 {
+    private $_orders;
+    private $_customername;
+    
     public function getOrders()
     {
-        $customer = $this->getCustomer();
-        $orders = Mage::getResourceModel('sales/order_collection');
-        $orders->getSelect()
-            ->where('customer_email = ?', $customer->getEmail())
-            ->order('created_at DESC');
-        
-        if ($orders->count()):
+        if ($orders = $this->_findMagentoOrders()):
             $return = array();
             
             foreach ($orders as $order):
@@ -33,14 +30,57 @@ class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
         return false;
     }
     
+    private function _findMagentoOrders()
+    {
+        if (!isset($this->_orders)):
+            $email = $this->getEmail();
+            $orders = Mage::getResourceModel('sales/order_collection');
+            $orders->getSelect()
+                ->where('customer_email = ?', $email)
+                ->order('created_at DESC');
+            
+            if ($orders->count()):
+                $this->_orders = $orders;
+            else:
+                $this->_orders = false;
+            endif;
+        endif;
+        
+        return $this->_orders;
+    }
+    
+    public function hasCustomerName()
+    {
+        if ($this->getCustomerName()):
+            return true;
+        endif;
+        
+        return false;
+    }
+    
     public function getCustomerName()
     {
-        return $this->getCustomer()->getName();
+        if (!isset($this->_customername)):
+            $this->_customername = false;
+            foreach (Mage::app()->getStores() as $store):
+                $customer = Mage::getModel('customer/customer');
+                $customer->setWebsiteId($store->getWebsite()->getId());
+                $customer->setStoreId($store->getId());
+                $customer->loadByEmail($this->getEmail());
+
+                if ($customer->getId()):
+                    $this->_customername = $customer->getName();
+                    break;
+                endif;
+            endforeach;
+        endif;
+        
+        return $this->_customername;
     }
     
     public function getCustomerEmail()
     {
-        return $this->getCustomer()->getEmail();
+        return $this->getEmail();
     }
     
     private function _getOrderUrl($id)

@@ -12,13 +12,9 @@ class HusseyCoding_Sirportly_OrdersController extends Mage_Core_Controller_Front
                         if (!empty($data['contacts']) && is_array($data['contacts'])):
                             $error = false;
                             if ($email = $this->_getEmail($data['contacts'])):
-                                if ($customer = $this->_customerExists($email)):
-                                    $this->loadLayout();
-                                    $this->getLayout()->getBlock('root')->setCustomer($customer);
-                                    $this->renderLayout();
-                                else:
-                                    $this->getResponse()->setBody($this->_notFoundHtml($email));
-                                endif;
+                                $this->loadLayout();
+                                $this->getLayout()->getBlock('root')->setEmail($email);
+                                $this->renderLayout();
                             else:
                                 $this->getResponse()->setBody($this->_noEmailHtml($email));
                             endif;
@@ -47,33 +43,6 @@ class HusseyCoding_Sirportly_OrdersController extends Mage_Core_Controller_Front
         endforeach;
         
         return false;
-    }
-    
-    private function _customerExists($email)
-    {
-        if (Mage::getStoreConfig('customer/account_share/scope')):
-            foreach (Mage::getResourceModel('core/website_collection') as $website):
-                $customer = Mage::getModel('customer/customer');
-                $customer->setWebsiteId($website->getId());
-                $customer->loadByEmail($email);
-                if ($customer->getId()):
-                    return $customer;
-                endif;
-            endforeach;
-        else:
-            $customer = Mage::getModel('customer/customer');
-            $customer->loadByEmail($email);
-            if ($customer->getId()):
-                return $customer;
-            endif;
-        endif;
-        
-        return false;
-    }
-    
-    private function _notFoundHtml($email)
-    {
-        return '<div>No Magento customer found with email address ' .  $email . '.</div>';
     }
     
     private function _noEmailHtml()

@@ -20,9 +20,8 @@ class HusseyCoding_Sirportly_Helper_CheckoutData extends Mage_Checkout_Helper_Da
     
     private function _compileTicketData($checkout, $message, $checkoutType)
     {
-        $customer = $checkout->getCustomer();
-        $name = $customer->getName();
-        $email = $customer->getEmail();
+        $name = $checkout->getCustomerFirstname() . ' ' . $checkout->getCustomerLastname();
+        $email = $checkout->getCustomerEmail();
         $subject = Mage::getStoreConfig('sirportly/paymentfailed/subject');
         $subject = !empty($subject) ? $subject : 'Problem Processing Your Payment';
         
