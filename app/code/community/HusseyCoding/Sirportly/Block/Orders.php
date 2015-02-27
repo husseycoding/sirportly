@@ -15,7 +15,8 @@ class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
                     'url' => $this->_getOrderUrl($order->getId()),
                     'date' => $this->_getDate($order->getCreatedAt()),
                     'time' => $this->_getTime($order->getCreatedAt()),
-                    'status' => $order->getStatus(),
+                    'customdate' => $this->_getCustomDate($order->getCreatedAt()),
+                    'status' => $this->_getStatus($order),
                     'items' => $this->_getOrderItemsData($order),
                     'total' => $this->_formatPrice($order->getBaseGrandTotal()),
                     'shipping' => $order->getShippingDescription(),
@@ -110,6 +111,27 @@ class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
         return false;
     }
     
+    private function _getCustomDate($timestamp)
+    {
+        if ($format = Mage::getStoreConfig('sirportly/general/customdate')):
+            if ($epoch = strtotime($timestamp)):
+                if ($time = @date($format, $epoch)):
+                    return $time;
+                endif;
+            endif;
+        endif;
+        
+        return false;
+    }
+    
+    private function _getStatus($order)
+    {
+        $status = $order->getStatus();
+        $status = Mage::getModel('sales/order_status')->load($status);
+        
+        return $status->getLabel();
+    }
+    
     private function _getOrderItemsData(Mage_Sales_Model_Order $order)
     {
         $return = array();
@@ -117,6 +139,7 @@ class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
         foreach ($order->getAllItems() as $item):
             $return[$item->getId()] = array(
                 'sku' => $item->getSku(),
+                'name' => $this->_getProductName($item->getProductId()),
                 'quantity' => (float) $item->getQtyOrdered(),
                 'url' => $this->_getItemUrl($item->getProductId())
             );
@@ -132,6 +155,13 @@ class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
     
     private function _getItemUrl($id)
     {
+        if ((int) Mage::getStoreConfig('sirportly/general/productlinks')):
+            $product = Mage::getModel('catalog/product')->load($id);
+            if ($product->getId()):
+                return $product->getProductUrl(false);
+            endif;
+        endif;
+        
         return Mage::helper('adminhtml')->getUrl('adminhtml/catalog_product/edit', array('id' => $id));
     }
     
@@ -155,5 +185,53 @@ class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
         endif;
         
         return false;
+    }
+    
+    public function getTimestamp($order)
+    {
+        if ((int) Mage::getStoreConfig('sirportly/general/dateformat') && $order['customdate']):
+            return $order['customdate'];
+        endif;
+        
+        return 'On ' . $order['date'] . ' at ' . $order['time'];
+    }
+    
+    public function _getProductName($id)
+    {
+        $product = Mage::getModel('catalog/product')->load($id);
+        if ($product->getId()):
+            $name = $product->getName();
+            $type = $product->getTypeInstance();
+            if (!$type->getChildrenIds($product->getId(), false)):
+                $found = false;
+                $type = Mage::getModel('catalog/product_type_grouped');
+                foreach ($type->getParentIdsByChild($product->getId()) as $parentid):
+                    $name = Mage::getModel('catalog/product')->load((int) $parentid)->getName();
+                    $found = true;
+                    break;
+                endforeach;
+
+                if (!$found):
+                    $type = Mage::getModel('catalog/product_type_configurable');
+                    foreach ($type->getParentIdsByChild($product->getId()) as $parentid):
+                        $name = Mage::getModel('catalog/product')->load((int) $parentid)->getName();
+                        $found = true;
+                        break;
+                    endforeach;
+                endif;
+
+                if (!$found):
+                    $type = Mage::getModel('bundle/product_type');
+                    foreach ($type->getParentIdsByChild($product->getId()) as $parentid):
+                        $name = Mage::getModel('catalog/product')->load((int) $parentid)->getName();
+                        break;
+                    endforeach;
+                endif;
+            endif;
+            
+            return $name;
+        endif;
+        
+        return '';
     }
 }

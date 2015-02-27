@@ -65,6 +65,33 @@
                             <show_in_store>0</show_in_store>
                             <comment>Add the key you used when creating the data frame in Sirportly.</comment>
                         </key>
+                        <dateformat>
+                            <label>Data Frame Date Format</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>sirportly/system_config_source_date</source_model>
+                        </dateformat>
+                        <customdate>
+                            <label>Custom Date Format</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[<p>Enter date in format accepted by the <a href="http://php.net/manual/en/function.date.php" target="_blank">PHP date function</a>.</p>]]></comment>
+                        </customdate>
+                        <productlinks>
+                            <label>Data Frame Product Links Go To</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>sirportly/system_config_source_links</source_model>
+                        </productlinks>
                     </fields>
                 </general>
                 <ticketassign translate="label">

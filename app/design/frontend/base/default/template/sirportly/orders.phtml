@@ -17,13 +17,13 @@
                     <td>
                         <a href="<?php echo $order['url']; ?>" target="_blank"><?php echo $order['number']; ?></a>
                     </td>
-                    <td>On <?php echo $order['date']; ?> at <?php echo $order['time']; ?></td>
+                    <td><?php echo $this->getTimestamp($order); ?></td>
                     <td><?php echo $order['status']; ?></td>
                     <?php if ($order['items']): ?>
                         <td>
                             <?php foreach ($order['items'] as $id => $item): ?>
                                 <div>
-                                    <a href="<?php echo $item['url']; ?>" target="_blank"><?php echo $item['quantity']; ?> x <?php echo $item['sku']; ?></a>
+                                    <a href="<?php echo $item['url']; ?>" target="_blank"><?php echo $item['quantity']; ?> x <?php echo $item['name'] . ' (' . $item['sku'] . ')'; ?></a>
                                 </div>
                             <?php endforeach; ?>
                         </td>

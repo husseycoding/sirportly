@@ -78,7 +78,7 @@
 </div>
 <?php if ($this->canCreate()): ?>
     <div id="sirportly-ticket-new-popup">
-        <form id="sirportly-ticket-new-form" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyNewTicket'); ?>">
+        <form id="sirportly-ticket-new-form" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyNewTicket'); ?>">
             <div class="entry-edit">
                 <div class="entry-edit-head">
                     <h4>New ticket for <?php echo $this->getCustomerName(); ?> (<?php echo $this->getCustomerEmail(); ?>)</h4>
@@ -94,13 +94,13 @@
 <script type="text/javascript">
     //<![CDATA[
         var thisordertickets = new ordertickets();
-        thisordertickets.updateurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUpdates'); ?>";
-        thisordertickets.usersurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUsers'); ?>";
-        thisordertickets.teamsurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyTeams'); ?>";
-        thisordertickets.submitnewurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyNewTicket'); ?>";
-        thisordertickets.submitupdateurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUpdateTicket'); ?>";
-        thisordertickets.deleteupdateurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyDeleteUpdate'); ?>";
-        thisordertickets.reassignurl = "<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyReassignTicket'); ?>";
+        thisordertickets.updateurl = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyUpdates'); ?>";
+        thisordertickets.usersurl = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyUsers'); ?>";
+        thisordertickets.teamsurl = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyTeams'); ?>";
+        thisordertickets.submitnewurl = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyNewTicket'); ?>";
+        thisordertickets.submitupdateurl = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyUpdateTicket'); ?>";
+        thisordertickets.deleteupdateurl = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyDeleteUpdate'); ?>";
+        thisordertickets.reassignurl = "<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyReassignTicket'); ?>";
         thisordertickets.orderid = "<?php echo Mage::registry('current_order')->getId(); ?>";
         thisordertickets.afterInit();
     //]]>

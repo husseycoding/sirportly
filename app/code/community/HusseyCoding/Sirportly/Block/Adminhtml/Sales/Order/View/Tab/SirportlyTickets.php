@@ -45,7 +45,7 @@ class HusseyCoding_Sirportly_Block_Adminhtml_Sales_Order_View_Tab_SirportlyTicke
     
     public function getTabUrl()
     {
-        return $this->getUrl('sirportly/sales_order/sirportlyTickets', array('_current' => true));
+        return $this->getUrl('adminhtml/sales_order/sirportlyTickets', array('_current' => true));
     }
 
     public function canShowTab()

@@ -1,6 +1,6 @@
 <?php if ($this->canUpdate()): ?>
     <div id="sirportly-ticket-reassign-popup-<?php echo $this->getReference(); ?>" class="sirportly-ticket-reassign-popup">
-        <form id="sirportly-ticket-reassign-form-<?php echo $this->getReference(); ?>" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('sirportly/sales_order/sirportlyUpdateTicket'); ?>">
+        <form id="sirportly-ticket-reassign-form-<?php echo $this->getReference(); ?>" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/sirportlyUpdateTicket'); ?>">
             <div class="entry-edit">
                 <div class="entry-edit-head">
                     <h4>Reassign ticket "<?php echo $this->getSubject(); ?>"</h4>
