@@ -141,7 +141,7 @@ class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
                 'sku' => $item->getSku(),
                 'name' => $this->_getProductName($item->getProductId()),
                 'quantity' => (float) $item->getQtyOrdered(),
-                'url' => $this->_getItemUrl($item->getProductId())
+                'url' => $this->_getItemUrl($item->getProductId(), $order)
             );
         endforeach;
         
@@ -153,10 +153,10 @@ class HusseyCoding_Sirportly_Block_Orders extends Mage_Core_Block_Template
         return Mage::helper('core')->currency($price, true, false);
     }
     
-    private function _getItemUrl($id)
+    private function _getItemUrl($id, $order)
     {
         if ((int) Mage::getStoreConfig('sirportly/general/productlinks')):
-            $product = Mage::getModel('catalog/product')->load($id);
+            $product = Mage::getModel('catalog/product')->setStoreId($order->getStoreId())->load($id);
             if ($product->getId()):
                 return $product->getProductUrl(false);
             endif;
